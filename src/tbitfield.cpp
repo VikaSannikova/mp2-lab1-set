@@ -19,7 +19,7 @@ TBitField::~TBitField()
 {
 }
 
-int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n
+int TBitField::GetMemIndex(const int n) const // индекс памяти дляинта в котором есть n
 {
 }
 
@@ -34,7 +34,7 @@ int TBitField::GetLength(void) const // получить длину (к-во б�
   return 0;
 }
 
-void TBitField::SetBit(const int n) // установить бит
+void TBitField::SetBit(const int n) // установить сдвиг бит
 {
 }
 
