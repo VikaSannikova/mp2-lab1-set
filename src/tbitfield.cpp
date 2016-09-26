@@ -58,38 +58,47 @@ void TBitField::SetBit(const int n) // установить сдвиг бит
 
 void TBitField::ClrBit(const int n) // очистить бит
 {
+	if (n >= 0 && n < BitLen)
+	{
+		pMem[GetMemIndex(n)] &= ~GetMemMask(n); //элементу массива pMem с индексом инта в котором хранится наше число присваиваем старое значение и пересекаем с инверсией маски нашего элемента
+	}
 }
 
 int TBitField::GetBit(const int n) const // получить значение бита
 {
-  return 0;
+	if (n >= 0 && n < BitLen)
+	{
+		pMem[GetMemIndex(n)] & GetMemMask(n); //на элемент из массива интов накладываем маску элемента. на его позиции стоит 1. битовое и получаем элемент
+
+	}
 }
 
 // битовые операции
 
-TBitField& TBitField::operator=(const TBitField &bf) // присваивание
+TBitField& TBitField::operator=(const TBitField &bf) //перегрузка присваивания
 {
+
 }
 
-int TBitField::operator==(const TBitField &bf) const // сравнение
-{
-  return 0;
-}
-
-int TBitField::operator!=(const TBitField &bf) const // сравнение
+int TBitField::operator==(const TBitField &bf) const // перегрузка сравнение
 {
   return 0;
 }
 
-TBitField TBitField::operator|(const TBitField &bf) // операция "или"
+int TBitField::operator!=(const TBitField &bf) const // прегрузка сравнение
+{
+  return 0;
+}
+
+TBitField TBitField::operator|(const TBitField &bf) // перегрузка операция "или"
 {
 }
 
-TBitField TBitField::operator&(const TBitField &bf) // операция "и"
+TBitField TBitField::operator&(const TBitField &bf) // перегрузка операция "и"
 {
 }
 
-TBitField TBitField::operator~(void) // отрицание
+TBitField TBitField::operator~(void) // перегрузка отрицание
 {
 }
 

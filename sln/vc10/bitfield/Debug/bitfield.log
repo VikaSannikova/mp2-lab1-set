@@ -1,0 +1,22 @@
+﻿  tset.cpp
+  tbitfield.cpp
+c:\projectsgit\mp2-lab1-set\src\tbitfield.cpp(71): warning C4552: &: оператор не имеет результата; требуется оператор с побочным действием
+  Создание кода...
+c:\projectsgit\mp2-lab1-set\src\tbitfield.cpp(74): error C4716: TBitField::GetBit: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tbitfield.cpp(81): error C4716: TBitField::operator=: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tbitfield.cpp(95): error C4716: TBitField::operator|: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tbitfield.cpp(99): error C4716: TBitField::operator&: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tbitfield.cpp(103): error C4716: TBitField::operator~: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tbitfield.cpp(109): error C4716: operator>>: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tbitfield.cpp(113): error C4716: operator<<: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(26): error C4716: TSet::operator TBitField: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(30): error C4716: TSet::GetMaxPower: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(49): error C4716: TSet::operator=: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(62): error C4716: TSet::operator+: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(66): error C4716: TSet::operator+: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(70): error C4716: TSet::operator-: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(74): error C4716: TSet::operator*: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(88): error C4716: operator<<: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(84): error C4716: operator>>: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(78): error C4716: TSet::operator~: должна возвращать значение
+c:\projectsgit\mp2-lab1-set\src\tset.cpp(58): error C4716: TSet::operator!=: должна возвращать значение
