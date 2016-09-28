@@ -33,7 +33,7 @@ TBitField::~TBitField()
 
 int TBitField::GetMemIndex(const int n) const // индекс памяти дляинта в котором есть n
 {
-	return n/(sizeof(TELEM) * 8); //получаем индекс инта, к котором хранится наше число. для 35--1. 8 это число бит в бите и умножаем на 2
+	return n/(sizeof(TELEM) * 8); //получаем индекс инта, к котором хранится наше число. для 35--1. 8 это число бит в бите и умножаем на 4
 }
 
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
@@ -77,37 +77,84 @@ int TBitField::GetBit(const int n) const // получить значение б
 
 TBitField& TBitField::operator=(const TBitField &bf) //перегрузка присваивания
 {
-
+	if (pMem != bf.pMem) //если биторые поля не совпадают, то
+	{
+		BitLen = bf.BitLen; //присваиваем значине длины поля
+		MemLen = bf.MemLen; //присваиваем значение кол-ва интов
+		delete[]pMem; //удаляем память битового поля
+		pMem = new TELEM[MemLen]; //выделяем память. динамический массив пустой длины MemLen
+		for (int i = 0; i < MemLen; i++) 
+			pMem[i] = bf.pMem[i]; //делаем поэлементноге присваивание
+	}
+	return *this;
 }
 
-int TBitField::operator==(const TBitField &bf) const // перегрузка сравнение
+int TBitField::operator==(const TBitField &bf) const // перегрузка сравнение равенство
 {
-  return 0;
+	int result = 1; //изначально безем результат 1
+	if (BitLen != bf.BitLen) result = 0; //если длтны не совпадают, то автоматически отсеиваем это сравнение
+	else
+		for (int i = 0; i < BitLen; i++) //цикл по элементам при равенстве длин
+		{
+			if (pMem[i] != bf.pMem[i]) result = 0; break; //если хоть раз не совпадают, то выходим их цикла
+		}
+	return result;
 }
 
 int TBitField::operator!=(const TBitField &bf) const // прегрузка сравнение
 {
-  return 0;
+  
+	int result = 0; //изначально безем результат 0, те совпадают
+	if (BitLen != bf.BitLen) result = 1; //если длтны не совпадают, то автоматически эти массивы интов не равны
+	else
+		for (int i = 0; i < BitLen; i++) //цикл по элементам при равенстве длин
+		{
+			if (pMem[i] != bf.pMem[i]) result = 1; break; //если хоть раз не совпадают, то выходим их цикла и массивы не равны
+		}
+	return result; 
 }
 
 TBitField TBitField::operator|(const TBitField &bf) // перегрузка операция "или"
 {
+	int len = BitLen; //новая переменна. присваиваем длину массива интов
+	if (len < bf.BitLen)  //если длина меньше длины второго объекта, то присваиваем длине большее значение
+		len = bf.BitLen;
+	TBitField temp(len); //создаем новый объект класса который и бдует наши смлиянием
+	for (int i = 0; i < MemLen; i++) //цикл по длин перрвого массива
+		temp.pMem[i] = pMem[i];  
+	for (int i = 0; i < bf.MemLen; i++) //цикл по длине второго массива
+		temp.pMem[i] |= bf.pMem[i]; //делаем побитовое или.
+	return temp; //возвращаем массив, который и будет итогом нашей операции
 }
 
 TBitField TBitField::operator&(const TBitField &bf) // перегрузка операция "и"
 {
+	int len = BitLen; //новая переменна. присваиваем длину битового поля
+	if (len < bf.BitLen)  //если длина битового поля меньше длины второго объекта, то присваиваем длине большее значение
+		len = bf.BitLen;
+	TBitField temp(len); //создаем новый объект класса который и бдует наши смлиянием
+	for (int i = 0; i < MemLen; i++) //цикл по длин перрвого массива
+		temp.pMem[i] = pMem[i];
+	for (int i = 0; i < bf.MemLen; i++) //цикл по длине второго массива
+		temp.pMem[i] &= bf.pMem[i]; //делаем побитовое и.
+	return temp; //возрашаем массив, который и будет итогом нашей операции
 }
 
 TBitField TBitField::operator~(void) // перегрузка отрицание
 {
+	int len;
+	TBitField temp(len);
+	return temp;
 }
 
 // ввод/вывод
 
 istream &operator>>(istream &istr, TBitField &bf) // ввод
 {
+	return istr;
 }
 
 ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
 {
+	return ostr;
 }

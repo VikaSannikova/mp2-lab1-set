@@ -23,10 +23,13 @@ TSet::TSet(const TBitField &bf) : BitField(-1)
 
 TSet::operator TBitField()
 {
+	TBitField temp(this->BitField);
+	return temp;
 }
 
 int TSet::GetMaxPower(void) const // получить макс. к-во эл-тов
 {
+	return 0;
 }
 
 int TSet::IsMember(const int Elem) const // элемент множества?
