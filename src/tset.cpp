@@ -7,7 +7,7 @@
 
 #include "tset.h"
 
-TSet::TSet(int mp):BitField(mp)
+TSet::TSet(int mp) :BitField(mp)
 {
 	MaxPower = mp; 
 }
@@ -72,12 +72,17 @@ int TSet::operator!=(const TSet &s) const // сравнение bool
 
 TSet TSet::operator+(const TSet &s) // объединение
 {
+	
 	TSet temp(BitField | s.BitField);
 	return temp;
 }
 
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {
+	if (Elem > BitField.GetLength())
+	{
+		throw 'E>L';
+	}
 	TSet temp(BitField);
 	temp.InsElem(Elem);
 	return temp;
