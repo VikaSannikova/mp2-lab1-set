@@ -4,17 +4,23 @@
 //   Переработано для Microsoft Visual Studio 2008 Сысоевым А.В. (19.04.2015)
 //
 // Битовое поле
- 
-//куку
 
 
 
 
 #include "tbitfield.h"
 
-TBitField::TBitField(int len)
-{
 
+TBitField::TBitField(int len) //:BitLen(len) конструктор 
+{
+	BitLen = len;
+	MemLen = (len - 1) / (8 * sizeof(TELEM)) + 1;
+	pMem = new TELEM[len];
+	if (pMem != NULL)
+		for (int i = 0; i < MemLen; i++)
+		{
+			pMem[i] = 0;
+		}
 }
 
 TBitField::TBitField(const TBitField &bf) // конструктор копирования (инициализатор???)
@@ -68,9 +74,9 @@ int TBitField::GetBit(const int n) const // получить значение б
 {
 	if (n >= 0 && n < BitLen)
 	{
-		pMem[GetMemIndex(n)] & GetMemMask(n); //на элемент из массива интов накладываем маску элемента. на его позиции стоит 1. битовое и получаем элемент
-
+		return pMem[GetMemIndex(n)] & GetMemMask(n); //на элемент из массива интов накладываем маску элемента. на его позиции стоит 1. битовое и получаем элемент
 	}
+
 }
 
 // битовые операции
@@ -142,8 +148,18 @@ TBitField TBitField::operator&(const TBitField &bf) // перегрузка оп
 
 TBitField TBitField::operator~(void) // перегрузка отрицание
 {
-	int len;
-	TBitField temp(len);
+	TBitField temp (*this);
+	for (int i = 0; i < MemLen; i++) //цикл по длине исходного массива
+	{
+		temp.pMem[i] = ~temp.pMem[i]; //делаем инверсию всех значений
+	}
+	for (int i = sizeof(TELEM) * 8 * MemLen; i < BitLen; i++)
+	{
+		if ((temp).GetBit(i) == 1) //если значение бита=1
+			temp.ClrBit(i); //вставляем вместо него 0
+		else
+			temp.SetBit(i); //оставляем его таким какой он есть
+	}
 	return temp;
 }
 
@@ -151,10 +167,31 @@ TBitField TBitField::operator~(void) // перегрузка отрицание
 
 istream &operator>>(istream &istr, TBitField &bf) // ввод
 {
+	char c; //вводимый символ
+	int i = 0; 
+	istr >> c; //делаем его ввод 0 или 1, если не эти числа то в
+	while ((c == '1') || (c == '0')) 
+	{
+		if (c == '1') 
+		{
+			bf.SetBit(i); //если C на позиции i=1 то вводим этот элемент
+		}
+		if (c == '0') 
+		{
+			bf.ClrBit(i); //если C на позиции i=0 то удаляем его/заполняем 0
+		}
+		i++;
+		istr >> c; //вводим С
+	}
 	return istr;
 }
 
 ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
 {
+	ostr << " Length of BitField=" << bf.BitLen << endl; //выводим строчку из 0 и 1 длины такой
+	for (int i = 0; i < bf.BitLen; i++) //цикл по длин элементаж
+	{
+		ostr << bf.GetBit(i);
+	}
 	return ostr;
 }
