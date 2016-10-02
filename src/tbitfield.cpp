@@ -165,11 +165,11 @@ TBitField TBitField::operator&(const TBitField &bf) // перегрузка оп
 TBitField TBitField::operator~(void) // перегрузка отрицание
 {
 	TBitField temp (*this);
-	for (int i = 0; i < MemLen; i++) //цикл по длине исходного массива
+	for (int i = 0; i < MemLen-1; i++) //цикл по длине исходного массива
 	{
 		temp.pMem[i] = ~temp.pMem[i]; //делаем инверсию всех значений
 	}
-	for (int i = sizeof(TELEM) * 8 * MemLen; i < BitLen; i++)
+	for (int i = sizeof(TELEM) * 8 * (MemLen-1); i < BitLen; i++)
 	{
 		if ((temp).GetBit(i) == 1) //если значение бита=1
 			temp.ClrBit(i); //вставляем вместо него 0
